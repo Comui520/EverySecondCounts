@@ -1,0 +1,14 @@
+-rootPath
+D:/EverySecondCounts
+-cmake-output
+-output-file
+D:/EverySecondCounts/build/Desktop_Qt_6_9_2_MinGW_64_bit-Debug/.qt/qml_imports/appEverySecondCounts_build.cmake
+-importPath
+D:/EverySecondCounts/build/Desktop_Qt_6_9_2_MinGW_64_bit-Debug/EverySecondCounts
+-importPath
+D:/EverySecondCounts/build/Desktop_Qt_6_9_2_MinGW_64_bit-Debug
+-importPath
+D:/QT/6.9.2/mingw_64/qml
+-qrcFiles
+D:/EverySecondCounts/build/Desktop_Qt_6_9_2_MinGW_64_bit-Debug/.qt/rcc/qmake_EverySecondCounts.qrc
+D:/EverySecondCounts/build/Desktop_Qt_6_9_2_MinGW_64_bit-Debug/.qt/rcc/appEverySecondCounts_raw_qml_0.qrc

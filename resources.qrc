@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>assets/icons/countdown_ico.png</file>
+        <file>CountDown.qml</file>
+    </qresource>
+    <qresource prefix="/new/prefix1">
+        <file>CountDown.qml</file>
+    </qresource>
+</RCC>

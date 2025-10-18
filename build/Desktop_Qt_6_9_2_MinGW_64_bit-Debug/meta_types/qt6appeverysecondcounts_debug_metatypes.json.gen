@@ -1,0 +1,127 @@
+[
+    {
+        "classes": [
+            {
+                "className": "MainPageButtonController",
+                "lineNumber": 9,
+                "object": true,
+                "qualifiedClassName": "MainPageButtonController",
+                "slots": [
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "iconSource",
+                                "type": "QUrl"
+                            },
+                            {
+                                "name": "redirectSource",
+                                "type": "QUrl"
+                            },
+                            {
+                                "name": "functionName",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 0,
+                        "name": "addNewButton",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QAbstractListModel"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "MainPageButtonController.h",
+        "outputRevision": 69
+    },
+    {
+        "classes": [
+            {
+                "className": "RedirectInfoProvider",
+                "lineNumber": 7,
+                "object": true,
+                "properties": [
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 0,
+                        "name": "redirectSource",
+                        "notify": "redirectSourceChanged",
+                        "read": "redirectSource",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QUrl",
+                        "user": false,
+                        "write": "setRedirectSource"
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 1,
+                        "name": "iconSource",
+                        "notify": "iconSourceChanged",
+                        "read": "iconSource",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QUrl",
+                        "user": false,
+                        "write": "setIconSource"
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 2,
+                        "name": "functionName",
+                        "notify": "functionNameChanged",
+                        "read": "functionName",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QString",
+                        "user": false,
+                        "write": "setFunctionName"
+                    }
+                ],
+                "qualifiedClassName": "RedirectInfoProvider",
+                "signals": [
+                    {
+                        "access": "public",
+                        "index": 0,
+                        "name": "redirectSourceChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "index": 1,
+                        "name": "iconSourceChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "index": 2,
+                        "name": "functionNameChanged",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QObject"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "RedirectInfoProvider.h",
+        "outputRevision": 69
+    }
+]

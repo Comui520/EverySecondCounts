@@ -1,0 +1,40 @@
+{
+    "classes": [
+        {
+            "className": "MainPageButtonController",
+            "lineNumber": 9,
+            "object": true,
+            "qualifiedClassName": "MainPageButtonController",
+            "slots": [
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "iconSource",
+                            "type": "QUrl"
+                        },
+                        {
+                            "name": "redirectSource",
+                            "type": "QUrl"
+                        },
+                        {
+                            "name": "functionName",
+                            "type": "QString"
+                        }
+                    ],
+                    "index": 0,
+                    "name": "addNewButton",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QAbstractListModel"
+                }
+            ]
+        }
+    ],
+    "inputFile": "MainPageButtonController.h",
+    "outputRevision": 69
+}

@@ -1,0 +1,13 @@
+<RCC>
+  <qresource prefix="/qt/qml/EverySecondCounts/">
+    <file alias="Main.qml">D:/EverySecondCounts/Main.qml</file>
+    <file alias="CommonPage.qml">D:/EverySecondCounts/CommonPage.qml</file>
+    <file alias="CountDown.qml">D:/EverySecondCounts/CountDown.qml</file>
+    <file alias="ImageButton.qml">D:/EverySecondCounts/ImageButton.qml</file>
+    <file alias="MainPage.qml">D:/EverySecondCounts/MainPage.qml</file>
+    <file alias="MainSection.qml">D:/EverySecondCounts/MainSection.qml</file>
+    <file alias="assets/icons/countdown_ico.png">D:/EverySecondCounts/assets/icons/countdown_ico.png</file>
+    <file alias="resources.qrc">D:/EverySecondCounts/resources.qrc</file>
+  </qresource>
+</RCC>
+

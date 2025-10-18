@@ -1,0 +1,28 @@
+[
+    {
+        "moduleFiles": [
+            {
+                "entries": [
+                    {
+                        "codegenSuccessful": true,
+                        "column": 20,
+                        "durationMicroseconds": 208,
+                        "errorMessage": "",
+                        "functionName": "theme",
+                        "line": 11
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 19,
+                        "durationMicroseconds": 49,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 18
+                    }
+                ],
+                "filePath": "D:/EverySecondCounts/Main.qml"
+            }
+        ],
+        "moduleId": "EverySecondCounts(appEverySecondCounts)"
+    }
+]

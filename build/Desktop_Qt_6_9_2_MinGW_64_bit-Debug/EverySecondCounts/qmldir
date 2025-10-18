@@ -1,0 +1,11 @@
+module EverySecondCounts
+typeinfo appEverySecondCounts.qmltypes
+prefer :/qt/qml/EverySecondCounts/
+Main 1.0 Main.qml
+CommonPage 1.0 CommonPage.qml
+CountDown 1.0 CountDown.qml
+ImageButton 1.0 ImageButton.qml
+MainPage 1.0 MainPage.qml
+MainSection 1.0 MainSection.qml
+depends QtQuick
+

@@ -1,0 +1,10 @@
+--resource
+D:/EverySecondCounts/build/Desktop_Qt_6_9_2_MinGW_64_bit-Debug/.qt/rcc/qmake_EverySecondCounts.qrc
+--resource
+D:/EverySecondCounts/build/Desktop_Qt_6_9_2_MinGW_64_bit-Debug/.qt/rcc/appEverySecondCounts_raw_qml_0.qrc
+/qt/qml/EverySecondCounts/Main.qml
+/qt/qml/EverySecondCounts/CommonPage.qml
+/qt/qml/EverySecondCounts/CountDown.qml
+/qt/qml/EverySecondCounts/ImageButton.qml
+/qt/qml/EverySecondCounts/MainPage.qml
+/qt/qml/EverySecondCounts/MainSection.qml

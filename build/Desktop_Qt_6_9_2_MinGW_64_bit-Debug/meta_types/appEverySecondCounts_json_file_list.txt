@@ -1,0 +1,2 @@
+D:/EverySecondCounts/build/Desktop_Qt_6_9_2_MinGW_64_bit-Debug/appEverySecondCounts_autogen/include/../EWIEGA46WW/moc_MainPageButtonController.cpp.json
+D:/EverySecondCounts/build/Desktop_Qt_6_9_2_MinGW_64_bit-Debug/appEverySecondCounts_autogen/include/../EWIEGA46WW/moc_RedirectInfoProvider.cpp.json
