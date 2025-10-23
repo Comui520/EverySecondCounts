@@ -7,6 +7,7 @@ Page {
   id: root
   property string pageLabel: "逝者如斯夫"
   property bool backVisibility: true
+  signal closed
   header: ToolBar {
     id: topbar
     height: 50
@@ -19,6 +20,7 @@ Page {
         font.pixelSize: 25
         onClicked: {
           stackView.pop()
+          root.closed()
         }
       }
     }

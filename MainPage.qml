@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import QtQuick.Controls.Universal
-import com.Comui521.MainPageButtonController 1.0
+import com.Comui520.MainPageButtonController 1.0
 
 CommonPage {
   MainSection {
