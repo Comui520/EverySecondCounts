@@ -36,6 +36,7 @@ qt_add_qml_module(appEverySecondCounts
         assets/icons/start_ico.png
         assets/icons/pause_ico.png
         assets/icons/cancel_ico.png
+        QML_FILES RollingBlock.qml
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
