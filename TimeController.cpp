@@ -1,12 +1,19 @@
 #include "TimeController.h"
+#include <QDebug>
 
 TimeController::TimeController(QObject *parent)
     : QAbstractListModel{parent}
 {
     m_currentTime = new QTime(0, 0, 0);
-    m_timer.setInterval(1000);
+    m_timer.setInterval(200);
     m_timer.setSingleShot(false);
+    player->setAudioOutput(audioOutput);
+    player->setSource(QUrl("qrc:/qt/qml/EverySecondCounts/assets/audios/ring.mp3"));
+    audioOutput->setVolume(1.0);
+
+
     connect(&m_timer, &QTimer::timeout, this, &TimeController::updateTime);
+    connect(this, &TimeController::timeUp, this, &TimeController::ring);
 }
 
 int TimeController::rowCount(const QModelIndex &parent) const
@@ -53,9 +60,19 @@ void TimeController::addNewTime(int h, int m, int s)
     endInsertRows();
 }
 
-void TimeController::setCurrentTime(int h, int m, int s)
+void TimeController::removeTime(const int index)
 {
-    m_currentTime->setHMS(h, m, s);
+    if (index >= 0 && index < m_timeList.length()){
+        beginRemoveRows(QModelIndex(), index, index);
+        m_timeList.removeAt(index);
+        endRemoveRows();
+    }
+}
+
+void TimeController::setCurrentTime(const int h, const int m, const int s)
+{
+    m_currentTime->setHMS(h, m, s, 0);
+    emit currentTimeChanged();
 }
 
 int TimeController::showCurrentTimeH()
@@ -75,25 +92,41 @@ int TimeController::showCurrentTimeS()
 
 void TimeController::start()
 {
+    if(*m_currentTime == QTime(0, 0, 0)){
+        return;
+    }
     m_timer.start();
+    setIsCount(true);
 }
 
 void TimeController::stop()
 {
     m_timer.stop();
+    setIsCount(false);
+}
+
+void TimeController::reset()
+{
+    this->stop();
+    setCurrentTime(0, 0, 0);
 }
 
 void TimeController::updateTime()
 {
     if (!m_currentTime) return;
     if (*m_currentTime == QTime(0, 0, 0)) {
-        stop();
-        emit timeShouldUpdate(); // 通知QML倒计时结束
+        this->stop();
+        emit timeUp(); // 通知QML倒计时结束
         return;
     }
-
-    *m_currentTime = m_currentTime->addSecs(-1);
+    *m_currentTime = m_currentTime->addMSecs(-200);
     emit currentTimeChanged();
+}
+
+void TimeController::ring(){
+    player->play();
+    this->stop();
+    setCurrentTime(0, 0, 0);
 }
 
 
@@ -108,4 +141,17 @@ void TimeController::setCurrentTime(QTime *newCurrentTime)
         return;
     m_currentTime = newCurrentTime;
     emit currentTimeChanged();
+}
+
+bool TimeController::isCount() const
+{
+    return m_isCount;
+}
+
+void TimeController::setIsCount(bool newIsCount)
+{
+    if (m_isCount == newIsCount)
+        return;
+    m_isCount = newIsCount;
+    emit isCountChanged();
 }

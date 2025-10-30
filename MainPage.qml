@@ -20,9 +20,11 @@ CommonPage {
 
       delegate: ImageButton {
         id: delegateid
+        required property url iconSource
         required property url redirectSource
         required property string buttonText
-        text: buttonText
+        iconS: delegateid.iconSource
+        text: delegateid.buttonText
         onClicked: {
           stackView.push(delegateid.redirectSource)
         }

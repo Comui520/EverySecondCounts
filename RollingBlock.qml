@@ -106,7 +106,7 @@ Rectangle {
     property real ddownY: 0
 
     anchors.fill: parent
-    enabled: !controller.isPlaying
+    enabled: !TimeController.isCount
     onPressed: {
       rollingBlock.startY = mouseY
     }
@@ -130,11 +130,6 @@ Rectangle {
     }
 
     onReleased: {
-
-      //当松开时, 更新时间
-      TimeController.setCurrentTime(hours.currentTime, minutes.currentTime,
-                                    seconds.currentTime)
-
       rollingBlock.startY = mouseY
       changeY(0, true)
     }

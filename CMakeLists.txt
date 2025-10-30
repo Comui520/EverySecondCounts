@@ -6,9 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt6 REQUIRED COMPONENTS Quick)
 find_package(Qt6 REQUIRED COMPONENTS Core)
-find_package(Qt6 REQUIRED COMPONENTS Core)
-find_package(Qt6 REQUIRED COMPONENTS Core)
-find_package(Qt6 REQUIRED COMPONENTS Core)
+find_package(Qt6 REQUIRED COMPONENTS Multimedia)
 
 qt_standard_project_setup(REQUIRES 6.8)
 
@@ -26,17 +24,20 @@ qt_add_qml_module(appEverySecondCounts
         ImageButton.qml
         MainPage.qml
         MainSection.qml
+        RollingBlock.qml
     SOURCES
         MainPageButtonController.h MainPageButtonController.cpp
         RedirectInfoProvider.h RedirectInfoProvider.cpp
-
         TimeController.h TimeController.cpp
     RESOURCES
         assets/icons/countdown_ico.png
         assets/icons/start_ico.png
         assets/icons/pause_ico.png
         assets/icons/cancel_ico.png
-        QML_FILES RollingBlock.qml
+        assets/icons/addCommonCountdown_ico.png
+        assets/icons/confirm_ico.png
+        assets/icons/delete_ico.png
+        assets/audios/ring.mp3
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
@@ -54,9 +55,7 @@ target_link_libraries(appEverySecondCounts
     PRIVATE Qt6::Quick
 )
 target_link_libraries(appEverySecondCounts PRIVATE Qt6::Core)
-target_link_libraries(appEverySecondCounts PRIVATE Qt6::Core)
-target_link_libraries(appEverySecondCounts PRIVATE Qt6::Core)
-target_link_libraries(appEverySecondCounts PRIVATE Qt6::Core)
+target_link_libraries(appEverySecondCounts PRIVATE Qt6::Multimedia)
 
 include(GNUInstallDirs)
 install(TARGETS appEverySecondCounts

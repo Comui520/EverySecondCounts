@@ -7,11 +7,11 @@ Button {
 
   hoverEnabled: true
 
-  required property url iconSource
+  property url iconS
   //正方形
   property int size: 150
 
-  icon.source: root.iconSource
+  icon.source: root.iconS
 
   width: Math.max(parent.width, size)
   height: size
