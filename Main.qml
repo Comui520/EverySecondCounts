@@ -9,10 +9,10 @@ ApplicationWindow {
   visible: true
   width: 450
   height: 800
-  Universal.theme: Universal.Light
-  Universal.accent: "#4361EE"
-  Universal.foreground: "#1E3A5F"
-  Universal.background: "#F4F5F7"
+  Universal.theme: Theme.darkMode ? Universal.Dark : Universal.Light
+  Universal.accent: Theme.accentColor
+  Universal.foreground: Theme.textColor
+  Universal.background: Theme.backgroundColor
 
   title: qsTr("EveryMinuteCounts")
 

@@ -14,6 +14,8 @@ Rectangle {
   property bool isDragging: false
   property bool enableAnimate: false
 
+  property int rollingCenterY: 48
+
   Layout.fillWidth: true
   Layout.fillHeight: true
 
@@ -23,7 +25,7 @@ Rectangle {
     color: "#F4F5F7"
 
     anchors.fill: parent
-    anchors.margins: 5
+    anchors.margins: Theme.marginPixel
 
     clip: true
 
@@ -38,7 +40,8 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
 
         font {
-          pixelSize: 20
+          pixelSize: Theme.textSize
+          family: Theme.fontFamily
           bold: true
         }
         color: item.isCenter ? "red" : "black"
@@ -54,7 +57,7 @@ Rectangle {
     }
     RollingItem {
       id: uup
-      y: 57 - 40 * 2
+      y: rollingBlock.rollingCenterY - 40 * 2
       isCenter: false
       time: (rollingBlock.currentTime + 2
              > rollingBlock.upper ? lower + (rollingBlock.currentTime - rollingBlock.upper
@@ -63,7 +66,7 @@ Rectangle {
 
     RollingItem {
       id: up
-      y: 57 - 40
+      y: rollingBlock.rollingCenterY - 40
       isCenter: false
       time: (rollingBlock.currentTime + 1
              > rollingBlock.upper ? lower : rollingBlock.currentTime + 1).toString()
@@ -71,14 +74,14 @@ Rectangle {
 
     RollingItem {
       id: current
-      y: 57
+      y: rollingBlock.rollingCenterY
       isCenter: true
       time: rollingBlock.currentTime.toString()
     }
 
     RollingItem {
       id: down
-      y: 57 + 40
+      y: rollingBlock.rollingCenterY + 40
       isCenter: false
       time: (rollingBlock.currentTime - 1
              < rollingBlock.lower ? upper : rollingBlock.currentTime - 1).toString()
@@ -86,7 +89,7 @@ Rectangle {
 
     RollingItem {
       id: ddown
-      y: 57 + 40 * 2
+      y: rollingBlock.rollingCenterY + 40 * 2
       isCenter: false
       time: (rollingBlock.currentTime - 2
              < rollingBlock.lower ? upper - (rollingBlock.lower + 1
@@ -99,7 +102,7 @@ Rectangle {
     //核心的计算
     id: mouseArea
 
-    property real currentY: 57
+    property real currentY: rollingBlock.rollingCenterY
     property real uupY: 0
     property real upY: 0
     property real downY: 0
@@ -112,7 +115,7 @@ Rectangle {
     }
     onMouseYChanged: {
       const delta = mouseY - rollingBlock.startY
-      let steps = (delta > 0) ? Math.floor(delta / 37) : Math.ceil(delta / 37)
+      let steps = (delta > 0) ? Math.floor(delta / 35) : Math.ceil(delta / 35)
       let newTime = rollingBlock.currentTime + steps
       if (newTime < rollingBlock.lower) {
         newTime = rollingBlock.upper

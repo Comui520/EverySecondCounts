@@ -3,10 +3,11 @@
 
 #include <QObject>
 #include <QAbstractListModel>
-#include <QTime>
+#include <MyTime.h>
 #include <QTimer>
 #include <QMediaPlayer>
 #include <QAudioOutput>
+#include <QSettings>
 
 class TimeController : public QAbstractListModel
 {
@@ -19,6 +20,7 @@ public:
         TimeHoursRole = Qt::UserRole + 1,
         TimeMinutesRole,
         TimeSecondsRole,
+        TimeTitleRole,
     };
     explicit TimeController(QObject *parent = nullptr);
     virtual int rowCount(const QModelIndex &parent) const override;
@@ -39,7 +41,7 @@ public slots:
     int showCurrentTimeH();
     int showCurrentTimeM();
     int showCurrentTimeS();
-    void addNewTime(int h, int m, int s);
+    void addNewTime(int h, int m, int s, QString title = "Countdown");
     void removeTime(const int index);
     void setCurrentTime(const int h, const int m, const int s);
     void start();
@@ -47,8 +49,12 @@ public slots:
     void reset();
     void updateTime();
     void ring();
+    void saveCommonCountdowns();
+    void loadCommonCountdowns();
+
+
 private:
-    QList<QTime*> m_timeList;
+    QList<MyTime*> m_timeList;
     QTimer m_timer;
     QTime *m_currentTime = nullptr;
     QMediaPlayer* player = new QMediaPlayer;

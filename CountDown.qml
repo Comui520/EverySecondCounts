@@ -18,10 +18,10 @@ CommonPage {
         top: parent.top
         left: parent.left
         right: parent.right
-        margins: 5
+        margins: Theme.marginPixel
       }
 
-      color: "#F4F5F7"
+      color: Theme.backgroundColor
 
       //160 + 100
       height: 260
@@ -34,16 +34,16 @@ CommonPage {
           top: parent.top
           left: parent.left
           right: parent.right
-          margins: 5
+          margins: Theme.marginPixel
         }
         height: 160
 
-        color: "#AAB6C4"
+        color: Theme.secondaryBackground
 
         RowLayout {
           anchors.fill: parent
-          anchors.margins: 5
-          spacing: 10
+          anchors.margins: Theme.marginPixel
+          spacing: Theme.itemSpace
 
           RollingBlock {
             id: rollingHours
@@ -89,10 +89,10 @@ CommonPage {
           left: parent.left
           right: parent.right
           bottom: parent.bottom
-          margins: 10
+          margins: Theme.marginPixel
         }
 
-        color: "#AAB6C4"
+        color: Theme.secondaryBackground
 
         RowLayout {
           anchors.fill: parent
@@ -105,7 +105,9 @@ CommonPage {
             Layout.fillHeight: true
             Layout.fillWidth: true
 
-            iconS: !TimeController.isCount ? "qrc:/qt/qml/EverySecondCounts/assets/icons/start_ico.png" : "qrc:/qt/qml/EverySecondCounts/assets/icons/pause_ico.png"
+            iconS: !TimeController.isCount ? Theme.assetsPath
+                                             + "icons/start_ico.png" : Theme.assetsPath
+                                             + "icons/pause_ico.png"
 
             onPressed: {
               if (!TimeController.isCount) {
@@ -130,7 +132,7 @@ CommonPage {
             Layout.alignment: Qt.AlignHCenter
             Layout.fillHeight: true
             Layout.fillWidth: true
-            iconS: "qrc:/qt/qml/EverySecondCounts/assets/icons/cancel_ico.png"
+            iconS: Theme.assetsPath + "icons/cancel_ico.png"
             onPressed: {
               controller.reset()
             }
@@ -147,17 +149,92 @@ CommonPage {
 
             Layout.fillHeight: true
             Layout.fillWidth: true
-            iconS: "qrc:/qt/qml/EverySecondCounts/assets/icons/addCommonCountdown_ico.png"
+            iconS: Theme.assetsPath + "icons/addCommonCountdown_ico.png"
             onPressed: {
-              TimeController.addNewTime(rollingHours.currentTime,
-                                        rollingMinutes.currentTime,
-                                        rollingSeconds.currentTime)
+              // TimeController.addNewTime(rollingHours.currentTime,
+              //                           rollingMinutes.currentTime,
+              //                           rollingSeconds.currentTime)
+              nameDialog.open()
             }
             Behavior on opacity {
               PropertyAnimation {
                 duration: 300
                 easing.type: Easing.InOutQuad
               }
+            }
+          }
+
+          Dialog {
+            id: nameDialog
+
+            property string enteredName: "Countdown"
+
+            title: "命名常用倒计时"
+            modal: true
+            standardButtons: Dialog.Ok | Dialog.Cancel | Dialog.exit
+            anchors.centerIn: parent
+            visible: false
+
+            width: 400
+            height: 272
+
+            contentItem: Rectangle {
+              anchors.fill: parent
+              anchors.margins: Theme.marginPixel
+              color: Theme.secondaryBackground
+
+              TextField {
+                id: nameInput
+                placeholderText: "请输入标题"
+                text: nameDialog.enteredName
+                color: Theme.textColor
+                font {
+                  pixelSize: Theme.titleSize
+                  family: Theme.fontFamily
+                }
+                height: 60
+                anchors {
+                  left: parent.left
+                  right: parent.right
+                  bottom: parent.verticalCenter
+                  margins: Theme.marginPixel
+                }
+
+                onTextChanged: nameDialog.enteredName = text
+              }
+
+              Rectangle {
+                height: 20
+                anchors {
+                  top: nameInput.bottom
+                  left: parent.left
+                  right: parent.right
+                  margins: Theme.marginPixel
+                }
+                color: Theme.secondaryBackground
+                Text {
+                  text: "例如：午休、学习间隔、泡面时间..."
+                  color: Theme.textColor
+                  font {
+                    pixelSize: Theme.smallTextSize
+                    family: Theme.fontFamily
+                  }
+                  anchors.centerIn: parent
+                }
+              }
+            }
+
+            onAccepted: {
+              // 如果用户没有输入标题，就使用默认名称
+              var title = nameDialog.enteredName.length > 0 ? nameDialog.enteredName : "Countdown"
+              TimeController.addNewTime(rollingHours.currentTime,
+                                        rollingMinutes.currentTime,
+                                        rollingSeconds.currentTime, title)
+              nameDialog.enteredName = ""
+            }
+
+            onRejected: {
+              nameDialog.enteredName = ""
             }
           }
         }
@@ -217,10 +294,10 @@ CommonPage {
         bottom: parent.bottom
         left: parent.left
         right: parent.right
-        margins: 6
+        margins: Theme.marginPixel
       }
 
-      color: "#F4F5F7"
+      color: Theme.backgroundColor
 
       Text {
         id: commoncountdown
@@ -230,7 +307,10 @@ CommonPage {
         }
 
         text: "常用倒计时"
-        font.pixelSize: 20
+        font {
+          pixelSize: Theme.textSize
+          family: Theme.fontFamily
+        }
       }
 
       Rectangle {
@@ -239,16 +319,16 @@ CommonPage {
           left: parent.left
           right: parent.right
           bottom: parent.bottom
-          margins: 5
+          margins: Theme.marginPixel
         }
-        color: "#AAB6C4"
+        color: Theme.secondaryBackground
 
         ListView {
           anchors {
             fill: parent
-            margins: 5
+            margins: Theme.marginPixel
           }
-          spacing: 10
+          spacing: Theme.itemSpace
 
           model: TimeController
 
@@ -259,31 +339,63 @@ CommonPage {
             required property int hours
             required property int minutes
             required property int seconds
+            required property string timeTitle
             required property int index
 
-            color: "#F4F5F7"
+            color: Theme.backgroundColor
 
             border.color: "white"
             border.width: 1
 
-            height: 40
+            height: 70
             anchors {
               left: parent.left
               right: parent.right
-              margins: 5
+            }
+
+            Rectangle {
+              id: timeName
+              color: Theme.secondaryBackground
+              anchors {
+                top: parent.top
+                left: parent.left
+                right: parent.right
+              }
+
+              height: 30
+
+              Text {
+                elide: Text.ElideRight
+                clip: true
+                width: 272
+                anchors.centerIn: parent
+                horizontalAlignment: Text.AlignHCenter
+                font {
+                  pixelSize: Theme.textSize
+                  family: Theme.fontFamily
+                }
+                color: Theme.textColor
+                text: delegate.timeTitle
+              }
             }
 
             RowLayout {
               id: layout
-              anchors.fill: parent
-              spacing: 5
+              anchors {
+                top: timeName.bottom
+                left: timeName.left
+                right: timeName.right
+                bottom: parent.bottom
+              }
+
+              spacing: Theme.itemSpace
 
               Rectangle {
                 Layout.fillHeight: true
                 Layout.fillWidth: true
                 ImageButton {
                   anchors.fill: parent
-                  iconS: "qrc:/qt/qml/EverySecondCounts/assets/icons/delete_ico.png"
+                  iconS: Theme.assetsPath + "icons/delete_ico.png"
                   onPressed: {
                     TimeController.removeTime(delegate.index)
                   }
@@ -297,7 +409,10 @@ CommonPage {
                 Text {
                   anchors.centerIn: parent
                   text: delegate.hours
-                  font.pixelSize: 20
+                  font {
+                    pixelSize: Theme.textSize
+                    family: Theme.fontFamily
+                  }
                 }
               }
 
@@ -306,7 +421,10 @@ CommonPage {
                 Layout.fillWidth: true
                 Text {
                   anchors.centerIn: parent
-                  font.pixelSize: 20
+                  font {
+                    pixelSize: Theme.textSize
+                    family: Theme.fontFamily
+                  }
                   text: "H"
                 }
               }
@@ -318,7 +436,10 @@ CommonPage {
                 Text {
                   anchors.centerIn: parent
                   text: delegate.minutes
-                  font.pixelSize: 20
+                  font {
+                    pixelSize: Theme.textSize
+                    family: Theme.fontFamily
+                  }
                 }
               }
 
@@ -327,7 +448,10 @@ CommonPage {
                 Layout.fillWidth: true
                 Text {
                   anchors.centerIn: parent
-                  font.pixelSize: 20
+                  font {
+                    pixelSize: Theme.textSize
+                    family: Theme.fontFamily
+                  }
                   text: "M"
                 }
               }
@@ -339,7 +463,10 @@ CommonPage {
                 Text {
                   anchors.centerIn: parent
                   text: delegate.seconds
-                  font.pixelSize: 20
+                  font {
+                    pixelSize: Theme.textSize
+                    family: Theme.fontFamily
+                  }
                 }
               }
 
@@ -348,7 +475,10 @@ CommonPage {
                 Layout.fillWidth: true
                 Text {
                   anchors.centerIn: parent
-                  font.pixelSize: 20
+                  font {
+                    pixelSize: Theme.textSize
+                    family: Theme.fontFamily
+                  }
                   text: "S"
                 }
               }
@@ -371,5 +501,9 @@ CommonPage {
         }
       }
     }
+  }
+  onClosed: {
+    TimeController.reset()
+    controller.reset()
   }
 }

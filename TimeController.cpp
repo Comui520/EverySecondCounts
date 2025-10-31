@@ -4,7 +4,7 @@
 TimeController::TimeController(QObject *parent)
     : QAbstractListModel{parent}
 {
-    m_currentTime = new QTime(0, 0, 0);
+    m_currentTime = new QTime;
     m_timer.setInterval(200);
     m_timer.setSingleShot(false);
     player->setAudioOutput(audioOutput);
@@ -25,14 +25,18 @@ int TimeController::rowCount(const QModelIndex &parent) const
 QVariant TimeController::data(const QModelIndex &index, int role) const
 {
     if (index.isValid() && index.row() >= 0 && index.row() < m_timeList.length()){
-        QTime* result = m_timeList[index.row()];
+        MyTime* result = m_timeList[index.row()];
+        QTime* time = result->time();
+        QString timeTitle = result->timeTitle();
         switch(Role(role)){
         case TimeHoursRole:
-            return result->hour();
+            return time->hour();
         case TimeMinutesRole:
-            return result->minute();
+            return time->minute();
         case TimeSecondsRole:
-            return result->second();
+            return time->second();
+        case TimeTitleRole:
+            return timeTitle;
         }
     }
     return {};
@@ -43,19 +47,23 @@ QHash<int, QByteArray> TimeController::roleNames() const
     // TimeTotalTimeRole = Qt::UserRole + 1,
     // TimeHoursRole,
     // TimeMinutesRole,
-    // TimeSecondsRole
+    // TimeSecondsRole,
+    // TimeTitleRole
     QHash<int, QByteArray> result;
     result[TimeHoursRole] = "hours";
     result[TimeMinutesRole] = "minutes";
     result[TimeSecondsRole] = "seconds";
+    result[TimeTitleRole] = "timeTitle";
     return result;
 }
 
-void TimeController::addNewTime(int h, int m, int s)
+void TimeController::addNewTime(int h, int m, int s, QString title)
 {
     beginInsertRows(QModelIndex(), m_timeList.length(), m_timeList.length());
-    QTime* newTime = new QTime;
-    newTime->setHMS(h, m, s);
+    MyTime* newTime = new MyTime;
+
+    newTime->time()->setHMS(h, m, s);
+    newTime->setTimeTitle(title);
     m_timeList << newTime;
     endInsertRows();
 }
@@ -127,6 +135,40 @@ void TimeController::ring(){
     player->play();
     this->stop();
     setCurrentTime(0, 0, 0);
+}
+
+void TimeController::saveCommonCountdowns()
+{
+    QSettings settings("Comui520", "EverySecondCounts");
+    settings.remove("CommonCountdowns");
+    settings.beginWriteArray("CommonCountdowns");
+    for (int i = 0; i < m_timeList.size(); ++i){
+        QTime* time = m_timeList[i]->time();
+        QString timeTitle = m_timeList[i]->timeTitle();
+        settings.setArrayIndex(i);
+        settings.setValue("hours", time->hour());
+        settings.setValue("minutes", time->minute());
+        settings.setValue("seconds", time->second());
+        settings.setValue("timeTitle", timeTitle);
+    }
+    settings.endArray();
+
+}
+
+void TimeController::loadCommonCountdowns()
+{
+    QSettings settings("Comui520", "EverySecondCounts");
+    int size = settings.beginReadArray("CommonCountdowns");
+    for (int i = 0; i < size; ++i){
+        settings.setArrayIndex(i);
+        int h = settings.value("hours").toInt();
+        int m = settings.value("minutes").toInt();
+        int s = settings.value("seconds").toInt();
+        QString timeTitle = settings.value("timeTitle").toString();
+        addNewTime(h, m, s, timeTitle);
+    }
+    settings.endArray();
+
 }
 
 

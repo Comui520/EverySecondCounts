@@ -10,9 +10,9 @@ CommonPage {
       id: listView
       anchors {
         fill: parent
-        margins: 10
+        margins: Theme.marginPixel
       }
-      spacing: 10
+      spacing: Theme.itemSpace
 
       clip: true
 

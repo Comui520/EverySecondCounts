@@ -7,6 +7,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(Qt6 REQUIRED COMPONENTS Quick)
 find_package(Qt6 REQUIRED COMPONENTS Core)
 find_package(Qt6 REQUIRED COMPONENTS Multimedia)
+find_package(Qt6 REQUIRED COMPONENTS Core)
+find_package(Qt6 REQUIRED COMPONENTS Core)
 
 qt_standard_project_setup(REQUIRES 6.8)
 
@@ -38,6 +40,9 @@ qt_add_qml_module(appEverySecondCounts
         assets/icons/confirm_ico.png
         assets/icons/delete_ico.png
         assets/audios/ring.mp3
+        QML_FILES Theme.qml
+        SOURCES
+        SOURCES MyTime.h MyTime.cpp
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
@@ -56,6 +61,8 @@ target_link_libraries(appEverySecondCounts
 )
 target_link_libraries(appEverySecondCounts PRIVATE Qt6::Core)
 target_link_libraries(appEverySecondCounts PRIVATE Qt6::Multimedia)
+target_link_libraries(appEverySecondCounts PRIVATE Qt6::Core)
+target_link_libraries(appEverySecondCounts PRIVATE Qt6::Core)
 
 include(GNUInstallDirs)
 install(TARGETS appEverySecondCounts

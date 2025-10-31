@@ -22,6 +22,7 @@ Button {
   display: AbstractButton.TextUnderIcon
 
   font {
-    pixelSize: 20
+    pixelSize: Theme.smallTextSize
+    family: Theme.fontFamily
   }
 }
